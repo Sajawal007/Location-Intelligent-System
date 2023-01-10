@@ -1,0 +1,690 @@
+<html>
+<head>
+<meta content="initial-scale=1.0, user-scalable=no" name="viewport"/>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+
+<script src="https://maps.googleapis.com/maps/api/js?libraries=visualization" type="text/javascript"></script>
+<script type="text/javascript">
+    function initialize() {
+        var map = new google.maps.Map(document.getElementById("map_canvas"), {
+            zoom: 14,
+            center: new google.maps.LatLng(31.418113, 73.140793)
+        });
+
+        var marker_icon_6495ED = {
+            url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAiCAYAAACwaJKDAAAABmJLR0QA/wD/AP+gvaeTAAADFUlEQVRIia2VW0gUYRiGn91lrGwj0qCsbS9qpZN5UaFlUQmF1IUURN0FkVFeSEQgdBcZBN10hEqipLoxjKjoXG5ZFh6y8tBKanmazLRd0t1Wx935u3AG121tx9X35me+/32f4eP//hkT/9dyYD0wHzADKiADb4CGKNl/tBmoBIQ1wSbsKVnCkbZL2FOyhDXBJgCh7W+OFDZFeD6JyZS/aOUOU+qWPBJtK8A02varo5baZ+dpqbkjEOIUcFR70T9QE3Bammo9lLm3EHtKVtR22use4yw6wNCA9yxwWAdbQjyHLNKUY1vzbjN/8caoQICZcxwkJWfQUl2yRqhBD1ARCp0H3E3bfkxauGqHIaAu6ywbUlw8na7SDUAR0G/W9nKtCQvil2/aPy6grmUbc5iRaI8HcmF4TACyk9N3Y7ZIMUHNFglH+m6AbB1qAZYkJa+LCagryZEBsASwmAEJiJs+yzYhqJaPAyTzSFmMYTeqkbwZUADF6+6YEFLLK4Ci32dXV1P5hKBa3gWoevv3miqKUQNKTEA1OERTRTHAPRgZqYs+j+ytd16KCdrgvIzPI3uBizByo7xAf1fzu21zHWuZkWg3DPzR/JayG3kINXgEKA2FAlQKNZjQ+vF+um1pJvEz50YF9nbU8ujCTgLKn3PAcb1uCfM9UQNKcnv90xWLVu9EmmodEzjoc/PgTDYD3t5bQE7onjnMK4CcP79/1JXdzAMx9uyWF+fj88hfgH2EDXk4FMAP7On8/CLQXF0SESg3vuLr+zsA+xk+j1GKBAX4CFyqultAMDAY1oug+v4JgBKgLFJ4LChAgc8j+5srb40qdjWV09NaIwg5mPFAfwLXG15eGVV0vb4Gw6NTFwsUoNAt1+OWh//Gir+PtrpHAFf/F4oGrQG+tH16CECnq5Tg0KAf7TrGCgV4IDe+BEB2OQGcRDjx8UKdPW0fUAOK/iV6Hi1gBFoVDAzS/a2Kvt5WgHcGMobUk5J5UAABYNpkQatmL0gVQIsRs5H2AXq11tsmE+pW/H0A/ZMJ7dbW75MJ7dLWViPmv887IG8sMF4/AAAAAElFTkSuQmCC",
+            labelOrigin: new google.maps.Point(10, 11)
+        };
+
+        new google.maps.Marker({
+            position: new google.maps.LatLng(31.418113, 73.140793),
+            icon: marker_icon_6495ED,
+            map: map
+        });
+
+        var marker_icon_FFFF00 = {
+            url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAiCAYAAACwaJKDAAAABmJLR0QA/wD/AP+gvaeTAAACU0lEQVRIia3Vv2sTYRgH8M9V0lYw4iRaSXVwEMQfFCwOUhcHFx21OPQvEMTVUUEUURQXwVUHcSkVB62ohWzFQAsiCoIKVoUiFX/ViHkcLleMttdr4hdeLne555P33rz3von8bMc+bEIXGniLKp4uVZQscf0AzmJPfz87d7JuHXNzTE/z5g2YxCk8WKZjEpxLEo3hYVGriUZDRLS2Wk0MD4sk0cC5nM5JcLlcFnfu/Ast1sbGRLkscHkp+ERvr6hWi4FZq1ZFb6/Aib/BPny9eHFlYNYuXRL42nQWcmbzZlGvt4fW62LLFoEzpNMEDo+MUCot9z8unlKJkZHUydBV2LZ/f3tglqEhsA2rulBCd39/Z2izvhul7PFFdIb+Wd+FOuqvX3eGNuvrqGfv87OJic7QZv2zpgdOVyrix4/2p1SlInD6zx/aiM/nz7eHXrgg8LnptOR4d7d4/Hhl4MSE6OkROL7U0Fwpl8XkZDHwyROxdq3AlbzxTnCzr0/MzOSDs7ML43hLztKXZTWmDx5cfC3N2tGjAs+xZjkwy278vHFjcXB8XCAwVBTMcrVSEfPzrWCjIQYHBW6vFIT1+Hb9eiv68KGQTvAd7aBwbdeuVvTIEaHAZpeXAcTUVArOzS1sHcfyirryvkQNL0ZH05N795if9x1jnaBwd3w8/XD/PniELwXqcnOopyddbLZuFTjZKQgbSNeEJBHYu1xBkcd/j9nRUSL8wlSHnVzI5MCAwMsiNxfpKcy+TLlCm05R9OOnT0gX4v+GfmgeZ/4n+q55fFXk5t99kkc0nvh3jgAAAABJRU5ErkJggg==",
+            labelOrigin: new google.maps.Point(10, 11)
+        };
+
+        var info_marker_0 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.409864, 73.108353),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_0 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJuWtYWAxoIjkR7XAWvMxcf6s>PSO Petrol Pump</a><br>Dist: 3.22 km'
+        });
+        
+        info_marker_0.addListener('click', function() {
+            info_window_0.open(map, info_marker_0);
+        });
+
+        var info_marker_1 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.439507, 73.090156),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_1 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJUXLNMSpoIjkRYTObjdf9IUg>PSO Petrol Pump</a><br>Dist: 5.37 km'
+        });
+        
+        info_marker_1.addListener('click', function() {
+            info_window_1.open(map, info_marker_1);
+        });
+
+        var info_marker_2 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.461364, 73.179990),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_2 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJG0tJmStpIjkRYqq5wtwTi-s>PSO Petrol Pump</a><br>Dist: 6.07 km'
+        });
+        
+        info_marker_2.addListener('click', function() {
+            info_window_2.open(map, info_marker_2);
+        });
+
+        var info_marker_3 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.440134, 73.134429),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_3 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJQ9h15ldoIjkRHLxliKbh718>PSO Petrol Pump</a><br>Dist: 2.52 km'
+        });
+        
+        info_marker_3.addListener('click', function() {
+            info_window_3.open(map, info_marker_3);
+        });
+
+        var info_marker_4 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.460670, 73.139386),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_4 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJVSSmuK5pIjkRpReZIGPxLb0>PSO Petrol Pump Shireenabad</a><br>Dist: 4.72 km'
+        });
+        
+        info_marker_4.addListener('click', function() {
+            info_window_4.open(map, info_marker_4);
+        });
+
+        var info_marker_5 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.454879, 73.158513),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_5 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJw5y4ih9pIjkRNTKz5OnLwcU>PSO سرفراز petroleum</a><br>Dist: 4.41 km'
+        });
+        
+        info_marker_5.addListener('click', function() {
+            info_window_5.open(map, info_marker_5);
+        });
+
+        var info_marker_6 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.393159, 73.181978),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_6 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJU4mf1eFlIjkRfeZutLwMVHY>PSO Petrol Pump Makuana</a><br>Dist: 4.8 km'
+        });
+        
+        info_marker_6.addListener('click', function() {
+            info_window_6.open(map, info_marker_6);
+        });
+
+        var info_marker_7 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.464077, 73.170425),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_7 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJqROviS9pIjkRzxdMW5if9aY>PSO Petrol Pump</a><br>Dist: 5.82 km'
+        });
+        
+        info_marker_7.addListener('click', function() {
+            info_window_7.open(map, info_marker_7);
+        });
+
+        var info_marker_8 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.407119, 73.121404),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_8 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJ_-J7CXdoIjkR2umkkzJmQx0>PSO Speed Bird Filling Station</a><br>Dist: 2.21 km'
+        });
+        
+        info_marker_8.addListener('click', function() {
+            info_window_8.open(map, info_marker_8);
+        });
+
+        var info_marker_9 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.432527, 73.122633),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_9 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJE0YBr0RoIjkRIuJ0yuUE78c>PSO</a><br>Dist: 2.35 km'
+        });
+        
+        info_marker_9.addListener('click', function() {
+            info_window_9.open(map, info_marker_9);
+        });
+
+        var info_marker_10 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.445588, 73.080577),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_10 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJP7BJyn1CIjkR6aTW3eLzXko>PSO Petrol Pump</a><br>Dist: 6.48 km'
+        });
+        
+        info_marker_10.addListener('click', function() {
+            info_window_10.open(map, info_marker_10);
+        });
+
+        var info_marker_11 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.400222, 73.144424),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_11 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJIW04fS9mIjkRoHESFM_2Dzc>PSO Jaranwala Road پی ایس او جڑانوالہ روڈ</a><br>Dist: 2.01 km'
+        });
+        
+        info_marker_11.addListener('click', function() {
+            info_window_11.open(map, info_marker_11);
+        });
+
+        var info_marker_12 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.464832, 73.173240),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_12 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJ0YprfSVpIjkRGgXcw2-whHc>Blue Star Petroleum - PSO</a><br>Dist: 6.03 km'
+        });
+        
+        info_marker_12.addListener('click', function() {
+            info_window_12.open(map, info_marker_12);
+        });
+
+        var info_marker_13 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.384572, 73.200872),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_13 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJp8kUicZlIjkRcV586rhh2Ic>PSO Petrol Pump</a><br>Dist: 6.82 km'
+        });
+        
+        info_marker_13.addListener('click', function() {
+            info_window_13.open(map, info_marker_13);
+        });
+
+        var info_marker_14 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.462571, 73.081017),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_14 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJvzuXd3NCIjkR-F49zXAxBzk>PSO PETROL PUMP (SAEED BUKHARI)</a><br>Dist: 7.52 km'
+        });
+        
+        info_marker_14.addListener('click', function() {
+            info_window_14.open(map, info_marker_14);
+        });
+
+        var info_marker_15 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.367383, 73.136962),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_15 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJPxqEnVRmIjkRmgxVSGje4lo>PSO Petrol Pump</a><br>Dist: 5.64 km'
+        });
+        
+        info_marker_15.addListener('click', function() {
+            info_window_15.open(map, info_marker_15);
+        });
+
+        var info_marker_16 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.371194, 73.070597),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_16 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJYf5fZmldIjkRUaHHHBT4Fm4>PSO Petrol Station</a><br>Dist: 8.46 km'
+        });
+        
+        info_marker_16.addListener('click', function() {
+            info_window_16.open(map, info_marker_16);
+        });
+
+        var info_marker_17 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.406273, 73.122739),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_17 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJowZLj3doIjkRpHpZm_RBtr0>Shell</a><br>Dist: 2.16 km'
+        });
+        
+        info_marker_17.addListener('click', function() {
+            info_window_17.open(map, info_marker_17);
+        });
+
+        var info_marker_18 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.396790, 73.113176),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_18 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJH9KW3N1nIjkRgvVBlMm-eCE>Shell Petrol Pump</a><br>Dist: 3.53 km'
+        });
+        
+        info_marker_18.addListener('click', function() {
+            info_window_18.open(map, info_marker_18);
+        });
+
+        var info_marker_19 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.399783, 73.108939),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_19 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJ3wNOi3BnIjkRaL2qT-s1srQ>Shell</a><br>Dist: 3.65 km'
+        });
+        
+        info_marker_19.addListener('click', function() {
+            info_window_19.open(map, info_marker_19);
+        });
+
+        var info_marker_20 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.416258, 73.108682),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_20 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJ71gh_hJoIjkRcs0Qq4Pxhac>Shell</a><br>Dist: 3.06 km'
+        });
+        
+        info_marker_20.addListener('click', function() {
+            info_window_20.open(map, info_marker_20);
+        });
+
+        var info_marker_21 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.459422, 73.082280),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_21 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJYZwErXJDIjkRw7HY0LWlBCs>Shell Petrol Pump</a><br>Dist: 7.21 km'
+        });
+        
+        info_marker_21.addListener('click', function() {
+            info_window_21.open(map, info_marker_21);
+        });
+
+        var info_marker_22 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.429279, 73.094468),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_22 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJeUxOFyRoIjkRY-FRIji8TGY>LMC F/S - Shell Pakistan Ltd.</a><br>Dist: 4.58 km'
+        });
+        
+        info_marker_22.addListener('click', function() {
+            info_window_22.open(map, info_marker_22);
+        });
+
+        var info_marker_23 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.470077, 73.202165),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_23 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJV7bgt9xuIjkR3SN7FqdpukI>Shell Petrol Pump</a><br>Dist: 8.2 km'
+        });
+        
+        info_marker_23.addListener('click', function() {
+            info_window_23.open(map, info_marker_23);
+        });
+
+        var info_marker_24 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.461300, 73.081700),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_24 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJmwwXrHZCIjkRR4D6AQNbdUA>Shell</a><br>Dist: 7.38 km'
+        });
+        
+        info_marker_24.addListener('click', function() {
+            info_window_24.open(map, info_marker_24);
+        });
+
+        var info_marker_25 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.421773, 73.076761),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_25 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJ3dQsPZhCIjkRyMCALa_q2DU>Shell Petrol Pump</a><br>Dist: 6.1 km'
+        });
+        
+        info_marker_25.addListener('click', function() {
+            info_window_25.open(map, info_marker_25);
+        });
+
+        var info_marker_26 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.477761, 73.077153),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_26 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJcXPRF6BDIjkRAWa2P0A9-lw>Shell Petrol Pump</a><br>Dist: 8.96 km'
+        });
+        
+        info_marker_26.addListener('click', function() {
+            info_window_26.open(map, info_marker_26);
+        });
+
+        var info_marker_27 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.416096, 73.109826),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_27 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJveXP09NpIjkRjscTbYFSRrg>Total petrol pump</a><br>Dist: 2.95 km'
+        });
+        
+        info_marker_27.addListener('click', function() {
+            info_window_27.open(map, info_marker_27);
+        });
+
+        var info_marker_28 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.453277, 73.117305),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_28 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJ8Xlo_7NpIjkR5GfqJzbDjQg>Total pump</a><br>Dist: 4.49 km'
+        });
+        
+        info_marker_28.addListener('click', function() {
+            info_window_28.open(map, info_marker_28);
+        });
+
+        var info_marker_29 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.417325, 73.089960),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_29 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJaR77bx5oIjkReiGLblZjlvc>Nagina Total Parco Filling Station</a><br>Dist: 4.83 km'
+        });
+        
+        info_marker_29.addListener('click', function() {
+            info_window_29.open(map, info_marker_29);
+        });
+
+        var info_marker_30 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.421841, 73.102886),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_30 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJSyHb6_xpIjkRbfOKQfPpuKA>Total Petrol Pump</a><br>Dist: 3.63 km'
+        });
+        
+        info_marker_30.addListener('click', function() {
+            info_window_30.open(map, info_marker_30);
+        });
+
+        var info_marker_31 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.414545, 73.114278),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_31 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJD4w5f21oIjkRpFGEyWG-MeY>FAROOQ SAEED PETROLEUM SERVICE- Total Petrol Station</a><br>Dist: 2.55 km'
+        });
+        
+        info_marker_31.addListener('click', function() {
+            info_window_31.open(map, info_marker_31);
+        });
+
+        var info_marker_32 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.390906, 73.121049),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_32 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJL4gZHZdnIjkR8Eogy6OqjlI>Zainab Filling Station - Total Petrol Station</a><br>Dist: 3.55 km'
+        });
+        
+        info_marker_32.addListener('click', function() {
+            info_window_32.open(map, info_marker_32);
+        });
+
+        var info_marker_33 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.446349, 73.094375),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_33 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJC_HgZ9NpIjkRoVnTbtuT1Qk>Bismillah Filling Station- Total Petrol Station</a><br>Dist: 5.41 km'
+        });
+        
+        info_marker_33.addListener('click', function() {
+            info_window_33.open(map, info_marker_33);
+        });
+
+        var info_marker_34 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.437747, 73.113827),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_34 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJE82AXUhoIjkRQHfvv1XRoBc>SYED PETROLEUM- Total Petrol Station</a><br>Dist: 3.36 km'
+        });
+        
+        info_marker_34.addListener('click', function() {
+            info_window_34.open(map, info_marker_34);
+        });
+
+        var info_marker_35 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.449772, 73.097522),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_35 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJjVaNOdJpIjkRPnwl1mNwH-w>Elite Filling Station- Total Petrol Station</a><br>Dist: 5.41 km'
+        });
+        
+        info_marker_35.addListener('click', function() {
+            info_window_35.open(map, info_marker_35);
+        });
+
+        var info_marker_36 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.442245, 73.081772),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_36 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJU4vZTIdCIjkRr0oH9PkSciA>FAISAL PETROLEUM- Total Petrol Station</a><br>Dist: 6.22 km'
+        });
+        
+        info_marker_36.addListener('click', function() {
+            info_window_36.open(map, info_marker_36);
+        });
+
+        var info_marker_37 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.418714, 73.079107),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_37 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJM5ypWaJCIjkRlIqvVUT8xHc>Total petrol pump</a><br>Dist: 5.87 km'
+        });
+        
+        info_marker_37.addListener('click', function() {
+            info_window_37.open(map, info_marker_37);
+        });
+
+        var info_marker_38 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.424144, 73.067262),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_38 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJQ8xTe5RCIjkRu5NqxN3XTfQ>Blue Moon Filling Station- Total Petrol Station</a><br>Dist: 7.02 km'
+        });
+        
+        info_marker_38.addListener('click', function() {
+            info_window_38.open(map, info_marker_38);
+        });
+
+        var info_marker_39 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.419305, 73.062286),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_39 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJ0_gekepCIjkRDCckoLmnKrU>Total Petrol Pump</a><br>Dist: 7.47 km'
+        });
+        
+        info_marker_39.addListener('click', function() {
+            info_window_39.open(map, info_marker_39);
+        });
+
+        var info_marker_40 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.435761, 73.079679),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_40 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJr9_mRYRCIjkRAcHzDlVq9Ac>Layllpur Filling Station- Total Petrol Station</a><br>Dist: 6.13 km'
+        });
+        
+        info_marker_40.addListener('click', function() {
+            info_window_40.open(map, info_marker_40);
+        });
+
+        var info_marker_41 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.406608, 73.121397),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_41 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJic5doXdoIjkRc7VVEE46UD4>Attock Petrol Pump & CNG</a><br>Dist: 2.24 km'
+        });
+        
+        info_marker_41.addListener('click', function() {
+            info_window_41.open(map, info_marker_41);
+        });
+
+        var info_marker_42 = new google.maps.Marker({
+            position: new google.maps.LatLng(31.442801, 73.088947),
+            label: "P",
+            icon: marker_icon_FFFF00,
+            map: map
+        });
+
+        var info_window_42 = new google.maps.InfoWindow({
+            content: '<a href=https://www.google.com/maps/place/?q=place_id:ChIJA5aOkipoIjkRBsx6e2j0L0A>Attock Petrol Station</a><br>Dist: 5.64 km'
+        });
+        
+        info_marker_42.addListener('click', function() {
+            info_window_42.open(map, info_marker_42);
+        });
+
+        new google.maps.Circle({
+            strokeColor: '#FFFFFF',
+            strokeOpacity: 1.0,
+            strokeWeight: 1,
+            fillColor: '#EAF6F6',
+            fillOpacity: 0.5,
+            map: map,
+            center: new google.maps.LatLng(31.41811331925385, 73.1407931992487),
+            radius: 5000
+        });
+
+    }
+</script>
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"/><title>PSO - Location Intelligent System</title></head>
+
+<body onload="initialize()" style="margin:0px; padding:0px; display: flex;"><div id="map_canvas" style="width: 50vw; height: 100vh"></div><div Class="flex flex-col" style="width: 50vw; height: 100vh"><img alt="Girl in a jacket" height="400" src="src/logo.png" width="300"/><h1 Class="m-4 font-bold font-italic text-2xl text-blue-800">Analysis Summary of Area (10KM)</h1><div Class="divide-y-2 divide-black m-4 bg-yellow-500 rounded"><h1 Class="text-green-800 m-2 text-xl">1. Schools/Universities: 60+</h1><h1 Class="text-green-800 m-2 text-xl">2. Banks/ATMS: 60+</h1><h1 Class="text-green-800 m-2 text-xl">3. Petrol Pumps: 43</h1><h1 Class="text-blue-800 m-2 text-xl">4. Peak Hours: <h6 Class="m-2">10:00 PM</h6></h1><h1 Class="text-blue-800 m-2 text-xl">5. Off-Peak Hours:<h6 Class="m-2">03:00 AM | 04:00 AM</h6></h1><h1 Class="text-blue-800 m-2 text-xl">6. Area Type:<h6 Class="m-2">Urban Area</h6></h1></div><h1 Class="text-red-800 mt-5 ml-4 text-xl">Project Supervised By: <h6 Class="ml-4">Muhammad Nadeem Shamim</h6><h6 Class="ml-4">Mr.Abdullah Jawad</h6></h1></div></body></html>
